@@ -1,6 +1,6 @@
 from pyspark import pipelines as dp
 
-# BRONZE - NETFLIX TITLES
+# BRONZE - NETFLIX TITLES  
 @dp.table(
     name="titles",
     comment="Raw incremental ingestion of Netflix titles"
