@@ -201,7 +201,6 @@ Netflix_Data_Engineering_Pipeline/
 ## Documentation
 
 - [Data Flow](docs/data_flow.md)
-- [Data Quality](docs/data_quality.md)
 - [Orchestration](docs/orchestration.md)
 
 ## Key Engineering Concepts Demonstrated
