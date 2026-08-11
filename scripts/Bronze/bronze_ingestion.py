@@ -9,8 +9,11 @@ def titles():
     return (spark.readStream.format("cloudFiles")
             .option("cloudFiles.format", "csv")
             .option("header","true")
+            .option("inferSchema", "true")
+            .option("cloudFiles.schemaLocation", "/Volumes/netflix_catalog/bronze/_schema/titles/")
+            .option("cloudFiles.schemaEvolutionMode", "rescue")
             .option("pathGlobFilter", "netflix_titles.csv")
-            .load("/Volumes/netflix_catalog/bronze/landing/batch_001/")
+            .load("/Volumes/netflix_catalog/bronze/landing/*/")
     )
 
 
@@ -26,9 +29,12 @@ def cast():
         .format("cloudFiles")
         .option("cloudFiles.format", "csv")
         .option("header", "true")
+        .option("inferSchema", "true")
+        .option("cloudFiles.schemaLocation", "/Volumes/netflix_catalog/bronze/_schema/cast/")
+        .option("cloudFiles.schemaEvolutionMode", "rescue")
         .option("pathGlobFilter", "netflix_cast.csv")
         .load(
-            "/Volumes/netflix_catalog/bronze/landing/batch_001/"
+            "/Volumes/netflix_catalog/bronze/landing/*/"
         )
     )
 
@@ -46,9 +52,12 @@ def category():
         .format("cloudFiles")
         .option("cloudFiles.format", "csv")
         .option("header", "true")
+        .option("inferSchema", "true")
+        .option("cloudFiles.schemaLocation", "/Volumes/netflix_catalog/bronze/_schema/category/")
+        .option("cloudFiles.schemaEvolutionMode", "rescue")
         .option("pathGlobFilter", "netflix_category.csv")
         .load(
-            "/Volumes/netflix_catalog/bronze/landing/batch_001/"
+            "/Volumes/netflix_catalog/bronze/landing/*/"
         )
     )
 
@@ -66,9 +75,12 @@ def countries():
         .format("cloudFiles")
         .option("cloudFiles.format", "csv")
         .option("header", "true")
+        .option("inferSchema", "true")
+        .option("cloudFiles.schemaLocation", "/Volumes/netflix_catalog/bronze/_schema/countries/")
+        .option("cloudFiles.schemaEvolutionMode", "rescue")
         .option("pathGlobFilter", "netflix_countries.csv")
         .load(
-            "/Volumes/netflix_catalog/bronze/landing/batch_001/"
+            "/Volumes/netflix_catalog/bronze/landing/*/"
         )
     )
 
@@ -85,8 +97,11 @@ def directors():
         .format("cloudFiles")
         .option("cloudFiles.format", "csv")
         .option("header", "true")
+        .option("inferSchema", "true")
+        .option("cloudFiles.schemaLocation", "/Volumes/netflix_catalog/bronze/_schema/directors/")
+        .option("cloudFiles.schemaEvolutionMode", "rescue")
         .option("pathGlobFilter", "netflix_directors.csv")
         .load(
-            "/Volumes/netflix_catalog/bronze/landing/batch_001/"
+            "/Volumes/netflix_catalog/bronze/landing/*/"
         )
     )

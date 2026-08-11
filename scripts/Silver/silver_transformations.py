@@ -10,7 +10,7 @@ from pyspark.sql import functions as F
 )
 @dp.expect_or_drop(
     "valid_show_id",
-    "show_id IS NOT NULL AND show_id <> ''"
+    "show_id IS NOT NULL"
 )
 @dp.expect_or_drop(
     "valid_type",
@@ -59,6 +59,10 @@ def titles():
             F.col("release_year").cast("int")
         )
         .withColumn(
+            "show_id",
+            F.col("show_id").cast("int")
+        )
+        .withColumn(
             "date_added",
             F.to_date(
                 F.col("date_added"),
@@ -76,11 +80,11 @@ def titles():
 )
 @dp.expect_or_drop(
     "valid_show_id",
-    "show_id IS NOT NULL AND show_id <> ''"
+    "show_id IS NOT NULL"
 )
 @dp.expect_or_drop(
     "valid_cast_member",
-    "cast IS NOT NULL AND cast <> ''"
+    "cast_member IS NOT NULL AND cast_member <> ''"
 )
 def cast():
 
@@ -90,11 +94,8 @@ def cast():
 
     return (
         df
-        .withColumn("show_id", F.trim(F.col("show_id")))
-        .withColumn(
-            "cast_member",
-            F.trim(F.col("cast"))
-        )
+        .withColumn("show_id", F.trim(F.col("show_id")).cast("int"))
+        .withColumnRenamed("cast", "cast_member")
     )
 
 
@@ -106,7 +107,7 @@ def cast():
 )
 @dp.expect_or_drop(
     "valid_show_id",
-    "show_id IS NOT NULL AND show_id <> ''"
+    "show_id IS NOT NULL"
 )
 @dp.expect_or_drop(
     "valid_category",
@@ -120,10 +121,11 @@ def category():
 
     return (
         df
-        .withColumn("show_id", F.trim(F.col("show_id")))
+        .withColumn("show_id", F.trim(F.col("show_id")).cast("int"))
+        .withColumnRenamed("listed_in", "category")
         .withColumn(
             "category",
-            F.trim(F.col("listed_in"))
+            F.trim(F.col("category"))
         )
     )
 
@@ -136,7 +138,7 @@ def category():
 )
 @dp.expect_or_drop(
     "valid_show_id",
-    "show_id IS NOT NULL AND show_id <> ''"
+    "show_id IS NOT NULL"
 )
 @dp.expect_or_drop(
     "valid_country",
@@ -150,7 +152,7 @@ def countries():
 
     return (
         df
-        .withColumn("show_id", F.trim(F.col("show_id")))
+        .withColumn("show_id", F.trim(F.col("show_id")).cast("int"))
         .withColumn(
             "country",
             F.trim(F.col("country"))
@@ -166,7 +168,7 @@ def countries():
 )
 @dp.expect_or_drop(
     "valid_show_id",
-    "show_id IS NOT NULL AND show_id <> ''"
+    "show_id IS NOT NULL"
 )
 @dp.expect_or_drop(
     "valid_director",
@@ -180,7 +182,7 @@ def directors():
 
     return (
         df
-        .withColumn("show_id", F.trim(F.col("show_id")))
+        .withColumn("show_id", F.trim(F.col("show_id")).cast("int"))
         .withColumn(
             "director",
             F.trim(F.col("director"))
